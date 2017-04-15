@@ -88,8 +88,13 @@
 
       {% if SITESUBTITLE %}<p>{{ SITESUBTITLE }}</p>{% endif %}
 
-      {% if pages or LINKS %}
       <nav>
+        <ul class="list">
+          {%- for tag, articles in tags|sort %}
+          <li><a href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a> ({{ articles|count }})</li>
+          {% endfor %}
+        </ul>
+      {% if pages or LINKS %}
         <ul class="list">
           {% if not PAGES_SORT_ATTRIBUTE -%}
               {% set PAGES_SORT_ATTRIBUTE = 'title' %}
@@ -102,8 +107,8 @@
           <li><a href="{{ link }}" target="_blank">{{ name }}</a></li>
           {% endfor %}
         </ul>
-      </nav>
       {% endif %}
+      </nav>
 
       <ul class="social">
         {% for name, link in SOCIAL %}
